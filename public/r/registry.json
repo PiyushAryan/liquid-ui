@@ -18,6 +18,7 @@
           "target": "@components/dictionary-hero.tsx"
         }
       ],
+      "docs": "Install with your package manager:\n\nnpm: npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\npnpm: pnpm dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\nyarn: yarn dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\nbun: bunx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
       "type": "registry:component"
     }
   ]

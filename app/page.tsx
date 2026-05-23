@@ -1,7 +1,27 @@
 import { DictionaryHero } from "@/components/dictionary-hero"
 
-const installCommand =
-  "npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json"
+const installCommands = [
+  {
+    label: "npm",
+    command:
+      "npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+  },
+  {
+    label: "pnpm",
+    command:
+      "pnpm dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+  },
+  {
+    label: "yarn",
+    command:
+      "yarn dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+  },
+  {
+    label: "bun",
+    command:
+      "bunx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+  },
+] as const
 
 export default function Home() {
   return (
@@ -36,9 +56,18 @@ export default function Home() {
           <aside className="space-y-4 border border-zinc-800 bg-zinc-900/60 p-4">
             <div className="space-y-2">
               <h2 className="text-sm font-semibold text-white">Install</h2>
-              <pre className="overflow-x-auto border border-zinc-800 bg-black p-3 text-xs leading-5 text-zinc-300">
-                <code>{installCommand}</code>
-              </pre>
+              <div className="space-y-2">
+                {installCommands.map(({ label, command }) => (
+                  <div key={label} className="space-y-1">
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                      {label}
+                    </p>
+                    <pre className="overflow-x-auto border border-zinc-800 bg-black p-3 text-xs leading-5 text-zinc-300">
+                      <code>{command}</code>
+                    </pre>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="space-y-2 text-sm text-zinc-400">

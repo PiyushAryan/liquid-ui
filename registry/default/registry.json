@@ -6,6 +6,7 @@
       "type": "registry:component",
       "title": "Dictionary Hero",
       "description": "A portfolio hero styled like a dictionary entry with pronunciation audio, portrait media, definitions, examples, and contact action.",
+      "docs": "Install with your package manager:\n\nnpm: npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\npnpm: pnpm dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\nyarn: yarn dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\nbun: bunx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
       "dependencies": [
         "framer-motion",
         "lucide-react"
