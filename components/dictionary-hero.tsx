@@ -157,13 +157,18 @@ export function DictionaryHero({
             </span>
 
             <span className="mt-2 select-none font-mono text-sm tracking-normal text-white/80 drop-shadow-md sm:mt-4 sm:text-base md:text-lg">
-              ({phonetic})
+              • ({phonetic})
             </span>
           </div>
         </div>
 
         <div className="absolute bottom-6 left-4 right-4 z-10 sm:left-6 sm:right-6">
-          <div className="relative border border-white/20 bg-zinc-950/35 p-4 shadow-2xl backdrop-blur-md dark:border-zinc-800/60 dark:bg-black/25 sm:p-5">
+          <div className="group/glass relative overflow-hidden rounded-2xl border border-white/18 bg-zinc-950/10 p-4 shadow-2xl backdrop-blur-md dark:border-zinc-800/60 dark:bg-black/10 sm:p-5">
+            <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-2xl">
+              <div className="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-emerald-500/10 blur-xl transition-all duration-700 group-hover/glass:bg-emerald-500/20" />
+              <div className="absolute -bottom-12 -left-12 h-24 w-24 rounded-full bg-indigo-500/10 blur-xl transition-all duration-700 group-hover/glass:bg-indigo-500/20" />
+            </div>
+
             <div className="relative z-10 w-full space-y-4">
               <div className="flex items-center justify-between gap-3">
                 <span className="select-none font-serif text-sm italic text-zinc-300 dark:text-zinc-400">
@@ -172,7 +177,7 @@ export function DictionaryHero({
 
                 <a
                   href={contactHref}
-                  className="group/contact inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/25 px-3 py-1 text-xs font-semibold text-emerald-300 transition-all duration-300 hover:bg-emerald-500/20"
+                  className="group/contact inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/28 px-3 py-1 text-xs font-semibold text-emerald-400 transition-all duration-300 hover:bg-emerald-500/20"
                 >
                   <Mail className="size-3 transition-transform group-hover/contact:rotate-12" />
                   <span className="hidden sm:inline">{contactLabel}</span>
@@ -183,7 +188,7 @@ export function DictionaryHero({
                 {definitions.map((definition, index) => (
                   <div key={`${definition.text}-${index}`} className="space-y-1">
                     {index > 0 ? (
-                      <div className="my-2 border-t border-white/10 dark:border-zinc-800/60" />
+                      <div className="my-2 border-t border-white/5 dark:border-zinc-800/40" />
                     ) : null}
                     <p className="text-sm font-light leading-relaxed sm:text-base">
                       <span className="mr-1.5 font-semibold text-emerald-400">

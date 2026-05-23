@@ -6,14 +6,25 @@ export const metadata: Metadata = {
   description: "A shadcn custom registry for the Dictionary Hero component.",
 };
 
+const themeScript = `
+  try {
+    const theme = localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  } catch {}
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <body className="flex min-h-full flex-col">
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {children}
+      </body>
     </html>
   );
 }
