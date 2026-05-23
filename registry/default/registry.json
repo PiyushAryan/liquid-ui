@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "dictionary-hero",
+      "type": "registry:component",
+      "title": "Dictionary Hero",
+      "description": "A portfolio hero styled like a dictionary entry with pronunciation audio, portrait media, definitions, examples, and contact action.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "dictionary-hero/dictionary-hero.tsx",
+          "type": "registry:component",
+          "target": "@components/dictionary-hero.tsx"
+        }
+      ]
+    }
+  ]
+}

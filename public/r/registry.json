@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "dictionary-hero",
+  "homepage": "https://dictionary-hero.vercel.app",
+  "items": [
+    {
+      "name": "dictionary-hero",
+      "title": "Dictionary Hero",
+      "description": "A portfolio hero styled like a dictionary entry with pronunciation audio, portrait media, definitions, examples, and contact action.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/default/dictionary-hero/dictionary-hero.tsx",
+          "type": "registry:component",
+          "target": "@components/dictionary-hero.tsx"
+        }
+      ],
+      "type": "registry:component"
+    }
+  ]
+}
