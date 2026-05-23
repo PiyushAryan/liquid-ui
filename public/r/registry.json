@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "dictionary-hero",
-  "homepage": "https://dictionary-hero.vercel.app",
+  "homepage": "https://design.piyusharyan.online",
   "items": [
     {
       "name": "dictionary-hero",
@@ -18,7 +18,7 @@
           "target": "@components/dictionary-hero.tsx"
         }
       ],
-      "docs": "Install with your package manager:\n\nnpm: npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\npnpm: pnpm dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\nyarn: yarn dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json\nbun: bunx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+      "docs": "Install with your package manager:\n\nnpm: npx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json\npnpm: pnpm dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json\nyarn: yarn dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json\nbun: bunx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json",
       "type": "registry:component"
     }
   ]

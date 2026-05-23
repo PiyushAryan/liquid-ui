@@ -74,33 +74,33 @@ bunx shadcn@latest add http://localhost:3000/r/dictionary-hero.json
 After deployment, users can install the component directly:
 
 ```bash
-npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
+npx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
 ```
 
 ```bash
-pnpm dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
-yarn dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
-bunx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
+pnpm dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
+yarn dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
+bunx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
 ```
 
 Or add it as a namespace in `components.json`:
 
 ```bash
-npx shadcn@latest registry add @dictionary-hero=https://dictionary-hero.vercel.app/r/{name}.json
+npx shadcn@latest registry add @dictionary-hero=https://design.piyusharyan.online/r/{name}.json
 npx shadcn@latest add @dictionary-hero/dictionary-hero
 ```
 
 ```bash
-pnpm dlx shadcn@latest registry add @dictionary-hero=https://dictionary-hero.vercel.app/r/{name}.json
+pnpm dlx shadcn@latest registry add @dictionary-hero=https://design.piyusharyan.online/r/{name}.json
 pnpm dlx shadcn@latest add @dictionary-hero/dictionary-hero
 ```
 
 ```bash
-yarn dlx shadcn@latest registry add @dictionary-hero=https://dictionary-hero.vercel.app/r/{name}.json
+yarn dlx shadcn@latest registry add @dictionary-hero=https://design.piyusharyan.online/r/{name}.json
 yarn dlx shadcn@latest add @dictionary-hero/dictionary-hero
 ```
 
 ```bash
-bunx shadcn@latest registry add @dictionary-hero=https://dictionary-hero.vercel.app/r/{name}.json
+bunx shadcn@latest registry add @dictionary-hero=https://design.piyusharyan.online/r/{name}.json
 bunx shadcn@latest add @dictionary-hero/dictionary-hero
 ```

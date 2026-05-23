@@ -66,11 +66,11 @@ bunx shadcn@latest add http://localhost:3000/r/dictionary-hero.json
 Deploy this folder as its own Next.js app. After deployment, other developers can install the component with:
 
 ```bash
-npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
+npx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
 ```
 
 ```bash
-pnpm dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
-yarn dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
-bunx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json
+pnpm dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
+yarn dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
+bunx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json
 ```

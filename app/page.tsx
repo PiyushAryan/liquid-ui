@@ -4,22 +4,22 @@ const installCommands = [
   {
     label: "npm",
     command:
-      "npx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+      "npx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json",
   },
   {
     label: "pnpm",
     command:
-      "pnpm dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+      "pnpm dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json",
   },
   {
     label: "yarn",
     command:
-      "yarn dlx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+      "yarn dlx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json",
   },
   {
     label: "bun",
     command:
-      "bunx shadcn@latest add https://dictionary-hero.vercel.app/r/dictionary-hero.json",
+      "bunx shadcn@latest add https://design.piyusharyan.online/r/dictionary-hero.json",
   },
 ] as const
 

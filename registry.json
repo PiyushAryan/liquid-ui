@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "dictionary-hero",
-  "homepage": "https://dictionary-hero.vercel.app",
+  "homepage": "https://design.piyusharyan.online",
   "include": [
     "registry/default/registry.json"
   ]
