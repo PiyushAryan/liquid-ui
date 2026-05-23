@@ -3,12 +3,18 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react"
 import type { MouseEvent } from "react"
-import { motion } from "framer-motion"
-import { Mail, Volume2 } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Mail, Volume2, Github, Linkedin, Globe, Sparkles, Compass } from "lucide-react"
 
 type DictionaryDefinition = {
   text: string
   example?: string
+}
+
+type SocialLink = {
+  platform: string
+  href: string
+  icon: "Github" | "Linkedin" | "Globe" | "Mail"
 }
 
 type DictionaryHeroProps = {
@@ -22,6 +28,11 @@ type DictionaryHeroProps = {
   contactHref?: string
   contactLabel?: string
   definitions?: DictionaryDefinition[]
+  synonyms?: string[]
+  antonyms?: string[]
+  origin?: string
+  techStack?: string[]
+  socials?: SocialLink[]
   className?: string
 }
 
@@ -36,14 +47,56 @@ const defaultDefinitions: DictionaryDefinition[] = [
   },
 ]
 
+const defaultSynonyms = [
+  "AI Engineer",
+  "Full Stack Creator",
+  "Voice Agent Architect",
+  "UX Designer",
+  "Problem Solver",
+]
+
+const defaultAntonyms = [
+  "Legacy Code Maintainer",
+  "Static Page Developer",
+  "Manual Process Enthusiast",
+  "Waterfall Devotee",
+]
+
+const defaultOrigin = 
+  "Circa 1999 • Varanasi, India. Derived from Sanskrit 'piyusha' meaning nectar or immortal drink. In modern engineering contexts, represents clean, highly performant code and agentic AI execution."
+
+const defaultTechStack = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Framer Motion",
+  "TailwindCSS",
+  "Node.js",
+  "Python",
+  "OpenAI API",
+]
+
+const defaultSocials: SocialLink[] = [
+  { platform: "GitHub", href: "https://github.com/PiyushAryan", icon: "Github" },
+  { platform: "LinkedIn", href: "https://linkedin.com/in/piyusharyan", icon: "Linkedin" },
+  { platform: "Portfolio", href: "https://piyusharyan.online", icon: "Globe" },
+]
+
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
+const socialIcons = {
+  Github: Github,
+  Linkedin: Linkedin,
+  Globe: Globe,
+  Mail: Mail,
+}
+
 export function DictionaryHero({
-  label = "Dictionary",
-  name = "@Piyush Aryan",
-  phonetic = "Pee-yoosh Aa-ry-an",
+  label = "Dictionary Entry",
+  name = "Piyush Aryan",
+  phonetic = "pee-yoosh aa-ry-an",
   partOfSpeech = "noun",
   imageSrc = "/Piyush-3.jpeg",
   imageAlt = "Portrait",
@@ -51,9 +104,15 @@ export function DictionaryHero({
   contactHref = "mailto:piyusharyan81@gmail.com",
   contactLabel = "Contact",
   definitions = defaultDefinitions,
+  synonyms = defaultSynonyms,
+  antonyms = defaultAntonyms,
+  origin = defaultOrigin,
+  techStack = defaultTechStack,
+  socials = defaultSocials,
   className,
 }: DictionaryHeroProps) {
   const [isSpeaking, setIsSpeaking] = useState(false)
+  const [activeTab, setActiveTab] = useState<"definitions" | "thesaurus" | "etymology">("definitions")
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
@@ -87,124 +146,290 @@ export function DictionaryHero({
     audioRef.current.play().catch(() => setIsSpeaking(false))
   }
 
+  const tabs = [
+    { id: "definitions" as const, label: "Definitions" },
+    { id: "thesaurus" as const, label: "Thesaurus" },
+    { id: "etymology" as const, label: "Origin & Tech" },
+  ]
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "group/dictionary-hero relative w-full overflow-hidden border border-zinc-200 bg-zinc-100 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900",
+        "dictionary-hero-grid group/dictionary-hero relative w-full overflow-hidden rounded-3xl border border-zinc-200/80 bg-zinc-50/40 p-4 shadow-2xl backdrop-blur-xl dark:border-zinc-800/80 dark:bg-zinc-950/20 sm:p-6",
         className
       )}
     >
+      {/* Styles for dynamic fonts and animations */}
       <style>{`
-        @keyframes dictionary-hero-wave {
-          0%, 100% { transform: scaleY(0.25); }
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
+        .dictionary-hero-grid {
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          background-image: radial-gradient(circle, rgba(24, 24, 27, 0.04) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+        .dark .dictionary-hero-grid {
+          background-image: radial-gradient(circle, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+        
+        @keyframes dictionary-hero-visualizer-wave {
+          0%, 100% { transform: scaleY(0.2); }
           50% { transform: scaleY(1); }
         }
-        .dictionary-hero-wave-1 { animation: dictionary-hero-wave 0.7s ease-in-out infinite; }
-        .dictionary-hero-wave-2 { animation: dictionary-hero-wave 0.5s ease-in-out infinite; animation-delay: 0.15s; }
-        .dictionary-hero-wave-3 { animation: dictionary-hero-wave 0.8s ease-in-out infinite; animation-delay: 0.3s; }
-        .dictionary-hero-wave-4 { animation: dictionary-hero-wave 0.6s ease-in-out infinite; animation-delay: 0.45s; }
+        .dictionary-hero-bar {
+          animation: dictionary-hero-visualizer-wave 0.8s ease-in-out infinite;
+        }
       `}</style>
 
-      <div className="relative h-[390px] w-full select-none overflow-hidden sm:h-[450px] md:h-[480px]">
-        <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover/dictionary-hero:scale-105">
-          <img
-            src={imageSrc}
-            alt={imageAlt}
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[50%_25%]"
-          />
-        </div>
+      {/* Aesthetic glowing blobs */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-3xl">
+        <div className="absolute -left-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/10 blur-3xl transition-all duration-700 group-hover/dictionary-hero:bg-emerald-500/15" />
+        <div className="absolute -bottom-16 -right-16 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl transition-all duration-700 group-hover/dictionary-hero:bg-indigo-500/15" />
+      </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25" />
+      <div className="relative z-10 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
+        {/* Left Column: Portrait and Media */}
+        <div className="relative md:col-span-5">
+          <div className="group/portrait relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-zinc-200/60 bg-zinc-100 shadow-lg dark:border-zinc-800/80 dark:bg-zinc-900 md:aspect-[3/4]">
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              fetchPriority="high"
+              className="h-full w-full object-cover object-[50%_25%] transition-transform duration-700 ease-out group-hover/portrait:scale-[1.03]"
+            />
+            
+            {/* Dark vignette overlay for contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/5" />
 
-        <div className="absolute left-6 right-6 top-6 z-10 flex flex-col gap-1 text-white">
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70 drop-shadow-md sm:text-xs">
-            {label}
-          </span>
+            {/* Top glassmorphic tag */}
+            <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-white/10 px-3 py-1 backdrop-blur-md">
+              <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white/90 drop-shadow-md sm:text-[10px]">
+                {label}
+              </span>
+            </div>
 
-          <div className="mt-2 flex flex-wrap items-center gap-3 sm:mt-3">
-            <button
-              type="button"
-              onClick={handleSpeak}
-              className={cn(
-                "relative flex size-10 cursor-pointer items-center justify-center rounded-full border transition-all duration-300 active:scale-95 sm:size-12",
-                isSpeaking
-                  ? "scale-105 border-emerald-400 bg-emerald-500/20 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.4)]"
-                  : "border-white/20 bg-white/10 text-white hover:border-white/40 hover:bg-white/20"
-              )}
-              aria-label="Listen to pronunciation"
-            >
-              {isSpeaking ? (
-                <span className="flex h-4 items-center justify-center gap-0.5">
-                  <span className="dictionary-hero-wave-1 h-full w-[3px] origin-center rounded-full bg-emerald-400" />
-                  <span className="dictionary-hero-wave-2 h-full w-[3px] origin-center rounded-full bg-emerald-400" />
-                  <span className="dictionary-hero-wave-3 h-full w-[3px] origin-center rounded-full bg-emerald-400" />
-                  <span className="dictionary-hero-wave-4 h-full w-[3px] origin-center rounded-full bg-emerald-400" />
+            {/* Bottom Signature & Phonetic Details */}
+            <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white">
+              <div className="flex flex-col gap-0.5">
+                <span
+                  className="select-none text-3xl font-bold tracking-wide text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] sm:text-4xl"
+                  style={{ fontFamily: "'Caveat', cursive" }}
+                >
+                  @{name.toLowerCase().replace(/\s+/g, "")}
                 </span>
-              ) : (
-                <Volume2 className="size-5 transition-transform duration-200 hover:scale-110 sm:size-6" />
-              )}
-            </button>
+                <span className="font-mono text-[10px] tracking-wide text-white/70 drop-shadow-md sm:text-xs">
+                  • ({phonetic})
+                </span>
+              </div>
 
-            <span
-              className="select-none pl-1 text-4xl font-bold tracking-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] sm:text-5xl md:text-6xl"
-              style={{ fontFamily: "'Caveat Brush', cursive" }}
-            >
-              {name}
-            </span>
-
-            <span className="mt-2 select-none font-mono text-sm tracking-normal text-white/80 drop-shadow-md sm:mt-4 sm:text-base md:text-lg">
-              • ({phonetic})
-            </span>
+              {/* Glassmorphic Pronunciation button inside image container */}
+              <button
+                type="button"
+                onClick={handleSpeak}
+                className={cn(
+                  "relative flex size-11 cursor-pointer items-center justify-center rounded-full border shadow-lg transition-all duration-300 active:scale-90 backdrop-blur-md",
+                  isSpeaking
+                    ? "border-emerald-400 bg-emerald-500/25 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.5)] scale-105"
+                    : "border-white/20 bg-white/10 text-white hover:border-white/40 hover:bg-white/20 hover:scale-105"
+                )}
+                aria-label="Listen to pronunciation"
+              >
+                {isSpeaking ? (
+                  <span className="flex h-5 items-center justify-center gap-[2.5px]">
+                    <span className="dictionary-hero-bar h-2.5 w-[2px] rounded-full bg-emerald-400" style={{ animationDelay: "0.1s" }} />
+                    <span className="dictionary-hero-bar h-4 w-[2px] rounded-full bg-emerald-400" style={{ animationDelay: "0.3s" }} />
+                    <span className="dictionary-hero-bar h-3.5 w-[2px] rounded-full bg-emerald-400" style={{ animationDelay: "0.0s" }} />
+                    <span className="dictionary-hero-bar h-5 w-[2px] rounded-full bg-emerald-400" style={{ animationDelay: "0.4s" }} />
+                    <span className="dictionary-hero-bar h-3.5 w-[2px] rounded-full bg-emerald-400" style={{ animationDelay: "0.2s" }} />
+                  </span>
+                ) : (
+                  <Volume2 className="size-5 transition-transform duration-200" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="absolute bottom-6 left-4 right-4 z-10 sm:left-6 sm:right-6">
-          <div className="group/glass relative overflow-hidden rounded-2xl border border-white/18 bg-zinc-950/10 p-4 shadow-2xl backdrop-blur-md dark:border-zinc-800/60 dark:bg-black/10 sm:p-5">
-            <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-2xl">
-              <div className="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-emerald-500/10 blur-xl transition-all duration-700 group-hover/glass:bg-emerald-500/20" />
-              <div className="absolute -bottom-12 -left-12 h-24 w-24 rounded-full bg-indigo-500/10 blur-xl transition-all duration-700 group-hover/glass:bg-indigo-500/20" />
+        {/* Right Column: Typographic Dictionary Details */}
+        <div className="flex flex-col justify-between md:col-span-7">
+          <div className="space-y-5">
+            {/* Header info */}
+            <div className="flex items-baseline gap-2.5 border-b border-zinc-200/80 pb-3 dark:border-zinc-800/80">
+              <h2 
+                className="font-serif text-4xl italic tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
+              >
+                {name}
+              </h2>
+              <span className="font-serif text-sm italic text-zinc-400 dark:text-zinc-500">
+                {partOfSpeech}
+              </span>
+              <span className="ml-auto font-mono text-[9px] font-medium tracking-[0.1em] text-zinc-400 dark:text-zinc-500 sm:text-[10px]">
+                [ip/ˈpiː.juːʃ/]
+              </span>
             </div>
 
-            <div className="relative z-10 w-full space-y-4">
-              <div className="flex items-center justify-between gap-3">
-                <span className="select-none font-serif text-sm italic text-zinc-300 dark:text-zinc-400">
-                  {partOfSpeech}
-                </span>
-
-                <a
-                  href={contactHref}
-                  className="group/contact inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/28 px-3 py-1 text-xs font-semibold text-emerald-400 transition-all duration-300 hover:bg-emerald-500/20"
+            {/* Glassmorphic Tabs Navigation */}
+            <div className="flex items-center gap-1 rounded-lg bg-zinc-200/30 p-1 dark:bg-zinc-900/40">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={cn(
+                    "relative w-full py-1.5 text-xs font-semibold tracking-wide transition-colors duration-200",
+                    activeTab === tab.id
+                      ? "text-zinc-900 dark:text-white"
+                      : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                  )}
                 >
-                  <Mail className="size-3 transition-transform group-hover/contact:rotate-12" />
-                  <span className="hidden sm:inline">{contactLabel}</span>
-                </a>
-              </div>
-
-              <div className="space-y-3.5 text-zinc-100">
-                {definitions.map((definition, index) => (
-                  <div key={`${definition.text}-${index}`} className="space-y-1">
-                    {index > 0 ? (
-                      <div className="my-2 border-t border-white/5 dark:border-zinc-800/40" />
-                    ) : null}
-                    <p className="text-sm font-light leading-relaxed sm:text-base">
-                      <span className="mr-1.5 font-semibold text-emerald-400">
-                        {index + 1}.
-                      </span>
-                      {definition.text}
-                    </p>
-                    {definition.example ? (
-                      <p className="pl-5 text-xs font-light italic leading-relaxed text-zinc-400 sm:text-sm">
-                        &quot;{definition.example}&quot;
-                      </p>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
+                  <span className="relative z-10">{tab.label}</span>
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="dictionary-hero-active-tab"
+                      className="absolute inset-0 rounded-md bg-white shadow-sm dark:bg-zinc-800/80"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </button>
+              ))}
             </div>
+
+            {/* Content Display Panels with Animated Stagger */}
+            <div className="min-h-[220px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  className="space-y-4"
+                >
+                  {/* TAB 1: DEFINITIONS */}
+                  {activeTab === "definitions" && (
+                    <div className="space-y-4">
+                      {definitions.map((def, idx) => (
+                        <div key={idx} className="group/def relative pl-4 border-l-2 border-zinc-200 dark:border-zinc-800 transition-colors hover:border-emerald-400 dark:hover:border-emerald-500">
+                          <p className="text-sm font-normal leading-relaxed text-zinc-700 dark:text-zinc-300 sm:text-base">
+                            <span className="mr-1.5 font-bold text-zinc-900 dark:text-zinc-50">
+                              {idx + 1}.
+                            </span>
+                            {def.text}
+                          </p>
+                          {def.example && (
+                            <p className="mt-1 text-xs italic leading-relaxed text-zinc-400 dark:text-zinc-500 sm:text-sm">
+                              &ldquo;{def.example}&rdquo;
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* TAB 2: THESAURUS */}
+                  {activeTab === "thesaurus" && (
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                          Synonyms
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {synonyms.map((syn, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center gap-1 rounded-full border border-emerald-500/10 bg-emerald-500/5 px-3 py-1 text-xs font-medium text-emerald-600 dark:border-emerald-400/10 dark:bg-emerald-400/5 dark:text-emerald-400"
+                            >
+                              <Sparkles className="size-3" />
+                              {syn}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 pt-2">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                          Antonyms
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {antonyms.map((ant, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center gap-1 rounded-full border border-rose-500/10 bg-rose-500/5 px-3 py-1 text-xs font-medium text-rose-600 dark:border-rose-400/10 dark:bg-rose-400/5 dark:text-rose-400"
+                            >
+                              {ant}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 3: ETYMOLOGY / TECH */}
+                  {activeTab === "etymology" && (
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                          Origin / Etymology
+                        </span>
+                        <p className="pl-3 border-l-2 border-indigo-400/30 text-xs italic leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-sm">
+                          {origin}
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-1">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                          Primary Tech Stack
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {techStack.map((tech, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center rounded-md border border-zinc-200 bg-white px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Socials & Call-to-action bar */}
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-zinc-200/80 pt-4 dark:border-zinc-800/80">
+            {/* Social Dock Links */}
+            <div className="flex items-center gap-2">
+              {socials.map((social) => {
+                const IconComponent = socialIcons[social.icon] || Compass
+                return (
+                  <a
+                    key={social.platform}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex size-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-500 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-zinc-300 hover:text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-200"
+                    title={social.platform}
+                  >
+                    <IconComponent className="size-4" />
+                  </a>
+                )
+              })}
+            </div>
+
+            {/* Elegant glowing email action button */}
+            <a
+              href={contactHref}
+              className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-5 py-2 text-xs font-bold text-emerald-600 transition-all duration-300 hover:bg-emerald-500/25 hover:shadow-[0_0_12px_rgba(16,185,129,0.3)] dark:border-emerald-400/20 dark:bg-emerald-400/5 dark:text-emerald-400 dark:hover:bg-emerald-400/15"
+            >
+              <Mail className="size-3.5" />
+              <span>{contactLabel}</span>
+            </a>
           </div>
         </div>
       </div>
