@@ -62,7 +62,7 @@ const defaultAntonyms = [
   "Waterfall Devotee",
 ]
 
-const defaultOrigin = 
+const defaultOrigin =
   "Circa 1999 • Varanasi, India. Derived from Sanskrit 'piyusha' meaning nectar or immortal drink. In modern engineering contexts, represents clean, highly performant code and agentic AI execution."
 
 const defaultTechStack = [
@@ -78,7 +78,7 @@ const defaultTechStack = [
 
 const defaultSocials: SocialLink[] = [
   { platform: "GitHub", href: "https://github.com/PiyushAryan", icon: "Github" },
-  { platform: "LinkedIn", href: "https://linkedin.com/in/piyusharyan", icon: "Linkedin" },
+  { platform: "LinkedIn", href: "https://linkedin.com/in/piyush-aryan", icon: "Linkedin" },
   { platform: "Portfolio", href: "https://piyusharyan.online", icon: "Globe" },
 ]
 
@@ -200,7 +200,7 @@ export function DictionaryHero({
               fetchPriority="high"
               className="h-full w-full object-cover object-[50%_25%] transition-transform duration-700 ease-out group-hover/portrait:scale-[1.03]"
             />
-            
+
             {/* Dark vignette overlay for contrast */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/5" />
 
@@ -258,7 +258,7 @@ export function DictionaryHero({
           <div className="space-y-5">
             {/* Header info */}
             <div className="flex items-baseline gap-2.5 border-b border-zinc-200/80 pb-3 dark:border-zinc-800/80">
-              <h2 
+              <h2
                 className="font-serif text-4xl italic tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
