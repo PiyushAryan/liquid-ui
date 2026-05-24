@@ -192,8 +192,8 @@ export function DictionaryHero({
 
       <div className="relative z-10 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
         {/* Left Column: Portrait and Media */}
-        <div className="relative md:col-span-5">
-          <div className="group/portrait relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-zinc-200/60 bg-zinc-100 shadow-lg dark:border-zinc-800/80 dark:bg-zinc-900 md:aspect-[3/4]">
+        <div className="relative md:col-span-4 flex flex-col">
+          <div className="group/portrait relative w-full flex-1 min-h-[320px] md:min-h-0 overflow-hidden rounded-2xl border border-zinc-200/60 bg-zinc-100 shadow-lg dark:border-zinc-800/80 dark:bg-zinc-900">
             <img
               src={imageSrc}
               alt={imageAlt}
@@ -254,7 +254,7 @@ export function DictionaryHero({
         </div>
 
         {/* Right Column: Typographic Dictionary Details */}
-        <div className="flex flex-col justify-between md:col-span-7">
+        <div className="flex flex-col justify-between md:col-span-8">
           <div className="space-y-5">
             {/* Header info */}
             <div className="flex items-baseline gap-2.5 border-b border-zinc-200/80 pb-3 dark:border-zinc-800/80">
