@@ -264,6 +264,13 @@ export default function Page() {
           <p className="mx-auto max-w-xl text-sm sm:text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
             A curated collection of organic, tactile, and highly-interactive user interface components. Designed for React, Framer Motion, and Tailwind CSS.
           </p>
+          <div className="mx-auto mt-6 max-w-3xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-1.5 shadow-xl dark:border-zinc-800/85 dark:bg-[#0c0c0e] transition-colors duration-300">
+            <img
+              src="/hero.png"
+              alt="Liquid UI Hero"
+              className="w-full rounded-xl object-cover"
+            />
+          </div>
         </section>
 
         {/* Dynamic Component Navigation Tabs */}
