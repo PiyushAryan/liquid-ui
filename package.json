@@ -12,6 +12,7 @@
     "registry:view": "npx shadcn@latest view http://localhost:3000/r/dictionary-hero.json"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.26.2",
     "lucide-react": "^0.562.0",
     "next": "16.2.6",
