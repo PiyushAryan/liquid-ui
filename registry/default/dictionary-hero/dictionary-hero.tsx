@@ -69,7 +69,7 @@ const defaultTechStack = [
   "React",
   "Next.js",
   "TypeScript",
-  "Framer Motion",
+  "Motion",
   "TailwindCSS",
   "Node.js",
   "Python",

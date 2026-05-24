@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Definitions for Minecraft-style blocks -->
+  <defs>
+    <!-- Stone Block definition (6x6 units) -->
+    <g id="stone-block">
+      <!-- Main face -->
+      <rect width="6" height="6" fill="#78716c" />
+      <!-- Top/Left highlight (light gray) -->
+      <rect x="0" y="0" width="6" height="1" fill="#a8a29e" />
+      <rect x="0" y="0" width="1" height="6" fill="#a8a29e" />
+      <!-- Bottom/Right shadow (dark gray) -->
+      <rect x="0" y="5" width="6" height="1" fill="#44403c" />
+      <rect x="5" y="0" width="1" height="6" fill="#44403c" />
+      <!-- Center stone detail -->
+      <rect x="3" y="3" width="1" height="1" fill="#57534e" />
+    </g>
+    
+    <!-- Shadow Block definition -->
+    <g id="shadow-block">
+      <rect width="6" height="6" fill="#18181b" />
+    </g>
+  </defs>
+
+  <!-- 3D Shadow Layer (Offset down and right by 3 units) -->
+  <g transform="translate(3, 3)" opacity="0.85">
+    <!-- P shadow -->
+    <use href="#shadow-block" x="11" y="29" />
+    <use href="#shadow-block" x="17" y="29" />
+    <use href="#shadow-block" x="23" y="29" />
+    <use href="#shadow-block" x="29" y="29" />
+    <use href="#shadow-block" x="35" y="29" />
+    <use href="#shadow-block" x="11" y="35" />
+    <use href="#shadow-block" x="17" y="35" />
+    <use href="#shadow-block" x="29" y="35" />
+    <use href="#shadow-block" x="35" y="35" />
+    <use href="#shadow-block" x="11" y="41" />
+    <use href="#shadow-block" x="17" y="41" />
+    <use href="#shadow-block" x="29" y="41" />
+    <use href="#shadow-block" x="35" y="41" />
+    <use href="#shadow-block" x="11" y="47" />
+    <use href="#shadow-block" x="17" y="47" />
+    <use href="#shadow-block" x="23" y="47" />
+    <use href="#shadow-block" x="29" y="47" />
+    <use href="#shadow-block" x="35" y="47" />
+    <use href="#shadow-block" x="11" y="53" />
+    <use href="#shadow-block" x="17" y="53" />
+    <use href="#shadow-block" x="11" y="59" />
+    <use href="#shadow-block" x="17" y="59" />
+    <use href="#shadow-block" x="11" y="65" />
+    <use href="#shadow-block" x="17" y="65" />
+
+    <!-- A shadow -->
+    <use href="#shadow-block" x="65" y="29" />
+    <use href="#shadow-block" x="71" y="29" />
+    <use href="#shadow-block" x="59" y="35" />
+    <use href="#shadow-block" x="65" y="35" />
+    <use href="#shadow-block" x="71" y="35" />
+    <use href="#shadow-block" x="77" y="35" />
+    <use href="#shadow-block" x="53" y="41" />
+    <use href="#shadow-block" x="59" y="41" />
+    <use href="#shadow-block" x="77" y="41" />
+    <use href="#shadow-block" x="83" y="41" />
+    <use href="#shadow-block" x="53" y="47" />
+    <use href="#shadow-block" x="59" y="47" />
+    <use href="#shadow-block" x="65" y="47" />
+    <use href="#shadow-block" x="71" y="47" />
+    <use href="#shadow-block" x="77" y="47" />
+    <use href="#shadow-block" x="83" y="47" />
+    <use href="#shadow-block" x="53" y="53" />
+    <use href="#shadow-block" x="59" y="53" />
+    <use href="#shadow-block" x="77" y="53" />
+    <use href="#shadow-block" x="83" y="53" />
+    <use href="#shadow-block" x="53" y="59" />
+    <use href="#shadow-block" x="59" y="59" />
+    <use href="#shadow-block" x="77" y="59" />
+    <use href="#shadow-block" x="83" y="59" />
+    <use href="#shadow-block" x="53" y="65" />
+    <use href="#shadow-block" x="59" y="65" />
+    <use href="#shadow-block" x="77" y="65" />
+    <use href="#shadow-block" x="83" y="65" />
+  </g>
+
+  <!-- Main Stone Block Layer -->
+  <g>
+    <!-- P blocks -->
+    <use href="#stone-block" x="11" y="29" />
+    <use href="#stone-block" x="17" y="29" />
+    <use href="#stone-block" x="23" y="29" />
+    <use href="#stone-block" x="29" y="29" />
+    <use href="#stone-block" x="35" y="29" />
+    <use href="#stone-block" x="11" y="35" />
+    <use href="#stone-block" x="17" y="35" />
+    <use href="#stone-block" x="29" y="35" />
+    <use href="#stone-block" x="35" y="35" />
+    <use href="#stone-block" x="11" y="41" />
+    <use href="#stone-block" x="17" y="41" />
+    <use href="#stone-block" x="29" y="41" />
+    <use href="#stone-block" x="35" y="41" />
+    <use href="#stone-block" x="11" y="47" />
+    <use href="#stone-block" x="17" y="47" />
+    <use href="#stone-block" x="23" y="47" />
+    <use href="#stone-block" x="29" y="47" />
+    <use href="#stone-block" x="35" y="47" />
+    <use href="#stone-block" x="11" y="53" />
+    <use href="#stone-block" x="17" y="53" />
+    <use href="#stone-block" x="11" y="59" />
+    <use href="#stone-block" x="17" y="59" />
+    <use href="#stone-block" x="11" y="65" />
+    <use href="#stone-block" x="17" y="65" />
+
+    <!-- A blocks -->
+    <use href="#stone-block" x="65" y="29" />
+    <use href="#stone-block" x="71" y="29" />
+    <use href="#stone-block" x="59" y="35" />
+    <use href="#stone-block" x="65" y="35" />
+    <use href="#stone-block" x="71" y="35" />
+    <use href="#stone-block" x="77" y="35" />
+    <use href="#stone-block" x="53" y="41" />
+    <use href="#stone-block" x="59" y="41" />
+    <use href="#stone-block" x="77" y="41" />
+    <use href="#stone-block" x="83" y="41" />
+    <use href="#stone-block" x="53" y="47" />
+    <use href="#stone-block" x="59" y="47" />
+    <use href="#stone-block" x="65" y="47" />
+    <use href="#stone-block" x="71" y="47" />
+    <use href="#stone-block" x="77" y="47" />
+    <use href="#stone-block" x="83" y="47" />
+    <use href="#stone-block" x="53" y="53" />
+    <use href="#stone-block" x="59" y="53" />
+    <use href="#stone-block" x="77" y="53" />
+    <use href="#stone-block" x="83" y="53" />
+    <use href="#stone-block" x="53" y="59" />
+    <use href="#stone-block" x="59" y="59" />
+    <use href="#stone-block" x="77" y="59" />
+    <use href="#stone-block" x="83" y="59" />
+    <use href="#stone-block" x="53" y="65" />
+    <use href="#stone-block" x="59" y="65" />
+    <use href="#stone-block" x="77" y="65" />
+    <use href="#stone-block" x="83" y="65" />
+  </g>
+</svg>

@@ -98,7 +98,7 @@ export default function Page() {
         }
       ]}
       synonyms={["AI Engineer", "Full Stack Creator", "UX Designer"]}
-      techStack={["React", "Next.js", "TypeScript", "Framer Motion", "TailwindCSS"]}
+      techStack={["React", "Next.js", "TypeScript", "Motion", "TailwindCSS"]}
     />
   )
 }`

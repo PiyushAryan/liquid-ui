@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Dictionary Hero Registry",
   description: "A shadcn custom registry for the Dictionary Hero component.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 const themeScript = `
