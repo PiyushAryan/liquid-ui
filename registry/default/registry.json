@@ -18,6 +18,40 @@
           "target": "@components/dictionary-hero.tsx"
         }
       ]
+    },
+    {
+      "name": "liquid-button",
+      "type": "registry:component",
+      "title": "Liquid Button",
+      "description": "A button featuring an organic gooey liquid-puddle hover morph effect using SVG Gaussian blur filters.",
+      "docs": "Install with your package manager:\n\nnpm: npx shadcn@latest add https://design.piyusharyan.online/r/liquid-button.json\npnpm: pnpm dlx shadcn@latest add https://design.piyusharyan.online/r/liquid-button.json\nyarn: yarn dlx shadcn@latest add https://design.piyusharyan.online/r/liquid-button.json\nbun: bunx shadcn@latest add https://design.piyusharyan.online/r/liquid-button.json",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "liquid-button/liquid-button.tsx",
+          "type": "registry:component",
+          "target": "@components/liquid-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "magnetic-card",
+      "type": "registry:component",
+      "title": "Magnetic Card",
+      "description": "A 3D perspective magnetic card reacting to cursor gravity with parallax interior shifts and radial gradient glow highlights.",
+      "docs": "Install with your package manager:\n\nnpm: npx shadcn@latest add https://design.piyusharyan.online/r/magnetic-card.json\npnpm: pnpm dlx shadcn@latest add https://design.piyusharyan.online/r/magnetic-card.json\nyarn: yarn dlx shadcn@latest add https://design.piyusharyan.online/r/magnetic-card.json\nbun: bunx shadcn@latest add https://design.piyusharyan.online/r/magnetic-card.json",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "magnetic-card/magnetic-card.tsx",
+          "type": "registry:component",
+          "target": "@components/magnetic-card.tsx"
+        }
+      ]
     }
   ]
 }

@@ -3,8 +3,8 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dictionary Hero Registry",
-  description: "A shadcn custom registry for the Dictionary Hero component.",
+  title: "Liquid UI - Premium Design Components",
+  description: "A curated collection of organic, highly-interactive UI components.",
   icons: {
     icon: "/favicon.svg",
   },
