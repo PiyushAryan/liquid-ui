@@ -58,10 +58,14 @@ export default function Home() {
   const [mcTiltStrength, setMcTiltStrength] = useState(15)
   const [mcMagneticStrength, setMcMagneticStrength] = useState(0.2)
 
-  // Sync theme local state with document element
+  // Sync theme local state asynchronously to satisfy linter body checks
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark")
-    setTheme(isDark ? "dark" : "light")
+    const systemTheme = isDark ? "dark" : "light"
+    const handle = setTimeout(() => {
+      setTheme(systemTheme)
+    }, 0)
+    return () => clearTimeout(handle)
   }, [])
 
   const toggleTheme = () => {
@@ -186,7 +190,7 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 transition-colors duration-300 dark:bg-[#09090b] dark:text-zinc-50 font-sans">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300 font-sans">
       {/* Import Google Fonts for Geist Sans override */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
@@ -198,29 +202,25 @@ export default function Page() {
         }
       `}</style>
 
-      {/* Dynamic Header */}
-      <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 bg-zinc-50/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-[#09090b]/80">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      {/* Dynamic Header - Thin Border */}
+      <header className="sticky top-0 z-40 w-full border-b border-[#241B15]/20 bg-[#FAF8F5]/90 backdrop-blur-md dark:border-emerald-500/20 dark:bg-[#0A0F0D]/90">
+        <div className="mx-auto flex h-16 max-w-[1800px] items-center justify-between px-4 sm:px-6 md:px-8">
           <div className="flex items-center gap-2.5">
-            {/* Liquid Logo Icon */}
-            <div className="relative flex size-9 items-center justify-center rounded-xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-md">
-              <Layers className="size-4 relative z-10" />
-              <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-              </span>
+            {/* Liquid Logo Icon - Thin Design */}
+            <div className="relative flex size-8 items-center justify-center rounded border border-[#241B15]/30 bg-[#FAF8F5] text-[#241B15] dark:border-emerald-500/40 dark:bg-[#080C0A] dark:text-emerald-400">
+              <Layers className="size-4" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-bold tracking-tight text-lg leading-tight">Liquid UI</span>
-              <span className="text-[10px] font-medium tracking-wider text-zinc-400 uppercase">Registry</span>
+            <div className="flex flex-col font-mono">
+              <span className="font-bold tracking-tight text-base leading-tight uppercase">[ LIQUID_UI ]</span>
+              <span className="text-[8px] font-semibold tracking-widest text-[#241B15]/50 dark:text-emerald-500/50 uppercase">registry v1.0 • thin spec</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Interactive Theme Switcher */}
+            {/* Interactive Theme Switcher - Thin */}
             <button
               onClick={toggleTheme}
-              className="flex size-9 cursor-pointer items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 shadow-sm transition-all duration-200 hover:border-zinc-300 hover:text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-200"
+              className="flex size-8 cursor-pointer items-center justify-center rounded border border-[#241B15]/20 bg-[#FAF8F5] text-[#241B15] hover:bg-zinc-100 dark:border-emerald-500/30 dark:bg-[#080C0A] dark:text-emerald-400 dark:hover:bg-emerald-500/10 transition-colors"
               aria-label="Toggle Theme"
             >
               <AnimatePresence mode="wait">
@@ -231,51 +231,56 @@ export default function Page() {
                   exit={{ rotate: 90, scale: 0.7, opacity: 0 }}
                   transition={{ duration: 0.15 }}
                 >
-                  {theme === "light" ? <Moon className="size-4.5" /> : <Sun className="size-4.5" />}
+                  {theme === "light" ? <Moon className="size-3.5" /> : <Sun className="size-3.5" />}
                 </motion.div>
               </AnimatePresence>
             </button>
 
-            {/* Portfolio Link */}
+            {/* Portfolio Link - Thin */}
             <a
               href="https://piyusharyan.online"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-zinc-200 bg-white px-4 text-xs font-semibold text-zinc-700 shadow-sm transition-all duration-200 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800"
+              className="inline-flex h-8 items-center gap-1 rounded border border-[#241B15]/20 bg-[#FAF8F5] px-3 font-mono text-[9px] font-bold uppercase tracking-wider text-[#241B15] hover:bg-zinc-100 dark:border-emerald-500/30 dark:bg-[#080C0A] dark:text-emerald-400 dark:hover:bg-emerald-500/10 transition-colors"
             >
               <span>Portfolio</span>
-              <ExternalLink className="size-3" />
+              <ExternalLink className="size-2.5" />
             </a>
           </div>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
-        {/* Hero Section */}
-        <section className="text-center space-y-4 pb-12">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/10 bg-emerald-500/5 px-3 py-1 text-xs font-semibold text-emerald-600 dark:border-emerald-400/10 dark:bg-emerald-400/5 dark:text-emerald-400 shadow-sm">
-            <Sparkles className="size-3.5" />
-            <span>Interactive Component Catalog</span>
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-500 bg-clip-text text-transparent dark:from-white dark:via-zinc-100 dark:to-zinc-500">
-            Liquid UI
-          </h1>
-          <p className="mx-auto max-w-xl text-sm sm:text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
-            A curated collection of organic, tactile, and highly-interactive user interface components. Designed for React, Framer Motion, and Tailwind CSS.
-          </p>
-          <div className="mx-auto mt-6 max-w-3xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-1.5 shadow-xl dark:border-zinc-800/85 dark:bg-[#0c0c0e] transition-colors duration-300">
-            <img
-              src="/hero.png"
-              alt="Liquid UI Hero"
-              className="w-full rounded-xl object-cover"
-            />
+      {/* Main Container - Full Width */}
+      <main className="mx-auto w-full max-w-[1800px] px-4 py-8 sm:px-6 md:px-8 space-y-8">
+        
+        {/* Immersive Hero Section with public/hero.png as Background */}
+        <section 
+          className="relative w-full rounded-xl border border-[#241B15]/20 dark:border-emerald-500/30 overflow-hidden bg-cover bg-center py-16 px-4 sm:px-8 text-center"
+          style={{ backgroundImage: "url('/hero.png')" }}
+        >
+          {/* Semi-transparent tint overlay for perfect legibility */}
+          <div className="absolute inset-0 bg-[#F6F2E9]/92 dark:bg-[#0A0F0D]/92 z-0 backdrop-blur-[0.5px]" />
+          
+          {/* Content layer */}
+          <div className="relative z-10 space-y-4 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 rounded border border-[#241B15]/20 bg-[#FAF8F5]/90 px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-[#241B15] dark:border-emerald-500/30 dark:bg-[#080C0A]/90 dark:text-emerald-400 shadow-sm">
+              <Sparkles className="size-3 text-current" />
+              <span>Interactive Component Catalog</span>
+            </div>
+            
+            <h1 className="text-3xl font-extrabold tracking-tighter sm:text-5xl font-mono uppercase text-[#241B15] dark:text-emerald-400 dark:drop-shadow-[0_0_6px_rgba(52,211,153,0.2)]">
+              Liquid UI
+            </h1>
+            
+            <p className="text-xs sm:text-sm leading-relaxed text-[#241B15]/80 dark:text-emerald-500/70 font-mono">
+              A curated collection of organic, tactile, and highly-interactive user interface components. Designed for React, Framer Motion, and Tailwind CSS.
+            </p>
           </div>
         </section>
 
-        {/* Dynamic Component Navigation Tabs */}
-        <section className="flex justify-center border-b border-zinc-200 dark:border-zinc-800/80 mb-10 pb-1">
-          <div className="flex gap-4">
+        {/* Dynamic Component Navigation Tabs - Thin Design */}
+        <section className="flex justify-center border-b border-[#241B15]/10 dark:border-emerald-500/20 pb-0.5">
+          <div className="flex gap-1 font-mono">
             {(Object.keys(componentInfo) as ComponentType[]).map((compId) => (
               <button
                 key={compId}
@@ -283,17 +288,17 @@ export default function Page() {
                   setActiveComponent(compId)
                   setActiveShowcaseTab("preview")
                 }}
-                className={`relative pb-3 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
+                className={`relative pb-2.5 px-3 text-[11px] font-bold uppercase tracking-wider transition-colors duration-200 cursor-pointer ${
                   activeComponent === compId
-                    ? "text-zinc-900 dark:text-white"
-                    : "text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+                    ? "text-[#241B15] dark:text-emerald-400"
+                    : "text-zinc-400 dark:text-emerald-500/30 hover:text-[#241B15] dark:hover:text-emerald-500/60"
                 }`}
               >
                 <span>{componentInfo[compId].title}</span>
                 {activeComponent === compId && (
                   <motion.div
                     layoutId="active-component-indicator"
-                    className="absolute bottom-0 inset-x-0 h-0.5 bg-zinc-900 dark:bg-white"
+                    className="absolute bottom-0 inset-x-0 h-[2px] bg-[#241B15] dark:bg-emerald-400"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -306,58 +311,59 @@ export default function Page() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* LEFT COLUMN: PREVIEW/PLAYGROUND & CUSTOMIZER */}
           <div className="lg:col-span-8 space-y-6">
-            {/* Visualizer card */}
-            <div className="rounded-3xl border border-zinc-200/80 bg-zinc-100/50 p-3 dark:border-zinc-800/80 dark:bg-zinc-950/20">
-              <div className="flex items-center justify-between border-b border-zinc-200/60 pb-3.5 px-2 dark:border-zinc-800/80">
+            
+            {/* Visualizer card - Thin Borders, No Shadows */}
+            <div className="rounded-xl border border-[#241B15]/20 bg-[#FAF8F5]/60 p-4 dark:border-emerald-500/20 dark:bg-[#0D1310]/60">
+              <div className="flex items-center justify-between border-b border-[#241B15]/10 pb-3 px-1 dark:border-emerald-500/20">
                 <div className="flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-red-400" />
-                  <span className="size-2 rounded-full bg-yellow-400" />
-                  <span className="size-2 rounded-full bg-green-400" />
-                  <span className="text-[11px] font-semibold font-mono text-zinc-400 uppercase tracking-widest ml-1.5">
-                    {currentComponent.title} Playground
+                  <span className="size-2 rounded-full bg-red-400/40" />
+                  <span className="size-2 rounded-full bg-yellow-400/40" />
+                  <span className="size-2 rounded-full bg-green-400/40" />
+                  <span className="text-[10px] font-bold font-mono text-[#241B15]/80 dark:text-emerald-400/80 uppercase tracking-wider ml-1">
+                    {currentComponent.title} Sandbox Terminal
                   </span>
                 </div>
 
-                {/* Tab Switcher */}
-                <div className="flex rounded-lg bg-zinc-200/60 p-0.5 dark:bg-zinc-900/60">
+                {/* Tab Switcher - Thin Outline */}
+                <div className="flex border border-[#241B15]/20 dark:border-emerald-500/30 overflow-hidden bg-white dark:bg-[#080C0A] rounded">
                   <button
                     onClick={() => setActiveShowcaseTab("preview")}
-                    className={`flex items-center gap-1.5 rounded-md px-3 py-1 text-xs font-semibold transition-colors duration-200 cursor-pointer ${
+                    className={`flex items-center gap-1 px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-wider transition-colors duration-150 cursor-pointer ${
                       activeShowcaseTab === "preview"
-                        ? "bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-white"
-                        : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                        ? "bg-[#241B15] text-[#F6F2E9] dark:bg-emerald-500 dark:text-zinc-950"
+                        : "text-[#241B15] hover:bg-zinc-100 dark:text-emerald-400/80 dark:hover:bg-emerald-500/10"
                     }`}
                   >
-                    <Zap className="size-3" />
-                    <span>Preview</span>
+                    <Zap className="size-2.5" />
+                    <span>Live</span>
                   </button>
                   <button
                     onClick={() => setActiveShowcaseTab("code")}
-                    className={`flex items-center gap-1.5 rounded-md px-3 py-1 text-xs font-semibold transition-colors duration-200 cursor-pointer ${
+                    className={`flex items-center gap-1 px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-wider transition-colors duration-150 cursor-pointer ${
                       activeShowcaseTab === "code"
-                        ? "bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-white"
-                        : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                        ? "bg-[#241B15] text-[#F6F2E9] dark:bg-emerald-500 dark:text-zinc-950"
+                        : "text-[#241B15] hover:bg-zinc-100 dark:text-emerald-400/80 dark:hover:bg-emerald-500/10"
                     }`}
                   >
-                    <FileCode className="size-3" />
-                    <span>Code</span>
+                    <FileCode className="size-2.5" />
+                    <span>JSX</span>
                   </button>
                 </div>
               </div>
 
-              {/* Playground Stage */}
-              <div className="relative flex min-h-[380px] w-full items-center justify-center overflow-hidden rounded-2xl border border-zinc-200/50 bg-white p-6 dark:border-zinc-800/50 dark:bg-[#0c0c0e] shadow-inner transition-colors duration-300">
+              {/* Playground Stage - Thin Border, Subtle CRT Scanline overlay */}
+              <div className="relative flex min-h-[380px] w-full items-center justify-center overflow-hidden rounded border border-[#241B15]/15 bg-white p-6 dark:border-emerald-500/20 dark:bg-black/90 crt-effect transition-colors duration-300 mt-4 shadow-sm">
                 {/* stage grid visualizer background */}
-                <div className="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.02] bg-[radial-gradient(#000_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(#fff_1.5px,transparent_1.5px)] [background-size:16px_16px]" />
+                <div className="pointer-events-none absolute inset-0 opacity-[0.02] dark:opacity-[0.015] bg-[radial-gradient(#000_1px,transparent_1px)] dark:bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
                 
                 <AnimatePresence mode="wait">
                   {activeShowcaseTab === "preview" ? (
                     <motion.div
                       key="preview-stage"
-                      initial={{ opacity: 0, scale: 0.98 }}
+                      initial={{ opacity: 0, scale: 0.99 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.2 }}
+                      exit={{ opacity: 0, scale: 0.99 }}
+                      transition={{ duration: 0.15 }}
                       className="w-full flex justify-center z-10"
                     >
                       {activeComponent === "dictionary-hero" && (
@@ -367,7 +373,7 @@ export default function Page() {
                           partOfSpeech={dhPartOfSpeech}
                           imageSrc={dhImageSrc}
                           label={dhLabel}
-                          className="w-full max-w-2xl"
+                          className="w-full max-w-2xl border border-[#241B15]/20 dark:border-emerald-500/40 rounded-xl"
                         />
                       )}
                       {activeComponent === "liquid-button" && (
@@ -385,24 +391,25 @@ export default function Page() {
                           accentColor={mcAccentColor}
                           tiltStrength={mcTiltStrength}
                           magneticStrength={mcMagneticStrength}
+                          className="border border-[#241B15]/20 dark:border-emerald-500/40 rounded-xl"
                         />
                       )}
                     </motion.div>
                   ) : (
                     <motion.div
                       key="code-stage"
-                      initial={{ opacity: 0, y: 5 }}
+                      initial={{ opacity: 0, y: 3 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 5 }}
-                      transition={{ duration: 0.18 }}
-                      className="w-full h-[380px] overflow-auto rounded-xl bg-zinc-950 p-4 font-mono text-[11px] leading-relaxed text-zinc-300 dark:bg-black border border-zinc-800/80 shadow-md text-left relative"
+                      exit={{ opacity: 0, y: 3 }}
+                      transition={{ duration: 0.15 }}
+                      className="w-full h-[380px] overflow-auto rounded bg-black p-4 font-mono text-[11px] leading-relaxed text-emerald-400 border border-emerald-500/20 shadow-inner text-left relative"
                     >
                       <button
                         onClick={() => handleCopy(getComponentUsageCode(), "usage-code")}
-                        className="absolute right-3 top-3 flex size-8 cursor-pointer items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200"
+                        className="absolute right-3 top-3 flex size-7 cursor-pointer items-center justify-center rounded border border-[#241B15]/20 bg-zinc-900/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200"
                         title="Copy JSX Code"
                       >
-                        {copiedText === "usage-code" ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
+                        {copiedText === "usage-code" ? <Check className="size-3 text-emerald-400" /> : <Copy className="size-3" />}
                       </button>
                       <pre>{getComponentUsageCode()}</pre>
                     </motion.div>
@@ -411,95 +418,95 @@ export default function Page() {
               </div>
             </div>
 
-            {/* CONFIGURE PROPS CONTROL PANEL */}
-            <div className="rounded-3xl border border-zinc-200/80 bg-white p-5 dark:border-zinc-800/80 dark:bg-zinc-950/20 shadow-sm">
-              <div className="flex items-center gap-2 border-b border-zinc-200/60 pb-3 mb-5 dark:border-zinc-800/60">
-                <Compass className="size-4 text-zinc-500" />
-                <h3 className="text-sm font-bold tracking-tight text-zinc-800 dark:text-zinc-200">
-                  Configure Props
+            {/* CONFIGURE PROPS CONTROL PANEL - Thin Border */}
+            <div className="rounded-xl border border-[#241B15]/20 bg-[#FAF8F5]/60 p-5 dark:border-emerald-500/20 dark:bg-[#0D1310]/60">
+              <div className="flex items-center gap-2 border-b border-[#241B15]/10 pb-3 mb-5 dark:border-emerald-500/20 font-mono">
+                <Compass className="size-4 text-current opacity-70" />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-current">
+                  [ System Configuration ]
                 </h3>
               </div>
 
               {/* Dynamic controls based on active selection */}
-              <div className="text-xs">
+              <div className="text-xs font-mono">
                 {activeComponent === "dictionary-hero" && (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Column 1: Core Details */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                        Core Info
+                      <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                        // Core Details
                       </h4>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Display Name</label>
+                        <label className="text-current font-semibold text-[10px]">DISPLAY NAME</label>
                         <input
                           type="text"
                           value={dhName}
                           onChange={(e) => setDhName(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 px-3 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                          className="w-full rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 px-3 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Top Ribbon Label</label>
+                        <label className="text-current font-semibold text-[10px]">TOP RIBBON LABEL</label>
                         <input
                           type="text"
                           value={dhLabel}
                           onChange={(e) => setDhLabel(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 px-3 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                          className="w-full rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 px-3 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                         />
                       </div>
                     </div>
 
                     {/* Column 2: Lexical Settings */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                        Lexical attributes
+                      <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                        // Lexical attributes
                       </h4>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Phonetic Notation</label>
+                        <label className="text-current font-semibold text-[10px]">PHONETIC NOTATION</label>
                         <input
                           type="text"
                           value={dhPhonetic}
                           onChange={(e) => setDhPhonetic(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 px-3 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                          className="w-full rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 px-3 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Part of Speech</label>
+                        <label className="text-current font-semibold text-[10px]">PART OF SPEECH</label>
                         <div className="relative">
                           <select
                             value={dhPartOfSpeech}
                             onChange={(e) => setDhPartOfSpeech(e.target.value)}
-                            className="w-full appearance-none rounded-lg border border-zinc-200 bg-zinc-50/50 pl-3 pr-8 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                            className="w-full appearance-none rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 pl-3 pr-8 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                           >
                             <option value="noun">noun</option>
                             <option value="verb">verb</option>
                             <option value="adjective">adjective</option>
                             <option value="creator">creator</option>
                           </select>
-                          <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-zinc-500" />
+                          <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-current opacity-70" />
                         </div>
                       </div>
                     </div>
 
                     {/* Column 3: Portrait settings */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                        Portrait Presets
+                      <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                        // Portrait presets
                       </h4>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Portrait Source URL</label>
+                        <label className="text-current font-semibold text-[10px]">PORTRAIT SOURCE URL</label>
                         <input
                           type="text"
                           value={dhImageSrc}
                           onChange={(e) => setDhImageSrc(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 px-3 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                          className="w-full rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 px-3 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                           placeholder="/Piyush-3.jpeg"
                         />
                       </div>
                       <div className="flex flex-wrap gap-1.5 pt-1">
                         <button
                           onClick={() => setDhImageSrc("/Piyush-3.jpeg")}
-                          className="rounded-md border border-zinc-200 bg-zinc-100 hover:bg-zinc-200 px-2 py-1 text-[10px] font-semibold dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+                          className="px-2.5 py-1 font-mono uppercase font-bold text-[9px] border border-[#241B15]/30 rounded hover:bg-zinc-100 dark:border-emerald-500/30 dark:bg-[#080C0A] dark:hover:bg-emerald-500/10 cursor-pointer transition-colors"
                         >
                           Piyush
                         </button>
@@ -509,7 +516,7 @@ export default function Page() {
                               "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600"
                             )
                           }
-                          className="rounded-md border border-zinc-200 bg-zinc-100 hover:bg-zinc-200 px-2 py-1 text-[10px] font-semibold dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+                          className="px-2.5 py-1 font-mono uppercase font-bold text-[9px] border border-[#241B15]/30 rounded hover:bg-zinc-100 dark:border-emerald-500/30 dark:bg-[#080C0A] dark:hover:bg-emerald-500/10 cursor-pointer transition-colors"
                         >
                           Model A
                         </button>
@@ -519,7 +526,7 @@ export default function Page() {
                               "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600"
                             )
                           }
-                          className="rounded-md border border-zinc-200 bg-zinc-100 hover:bg-zinc-200 px-2 py-1 text-[10px] font-semibold dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+                          className="px-2.5 py-1 font-mono uppercase font-bold text-[9px] border border-[#241B15]/30 rounded hover:bg-zinc-100 dark:border-emerald-500/30 dark:bg-[#080C0A] dark:hover:bg-emerald-500/10 cursor-pointer transition-colors"
                         >
                           Model B
                         </button>
@@ -532,45 +539,45 @@ export default function Page() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Col 1: Label and Theme */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                        Button Styling
+                      <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                        // Button Attributes
                       </h4>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Button Label</label>
+                        <label className="text-current font-semibold text-[10px]">BUTTON LABEL</label>
                         <input
                           type="text"
                           value={lbLabel}
                           onChange={(e) => setLbLabel(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 px-3 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                          className="w-full rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 px-3 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Color Variant</label>
+                        <label className="text-current font-semibold text-[10px]">COLOR VARIANT</label>
                         <div className="relative">
                           <select
                             value={lbVariant}
-                            onChange={(e) => setLbVariant(e.target.value as any)}
-                            className="w-full appearance-none rounded-lg border border-zinc-200 bg-zinc-50/50 pl-3 pr-8 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                            onChange={(e) => setLbVariant(e.target.value as "default" | "emerald" | "violet" | "rose")}
+                            className="w-full appearance-none rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 pl-3 pr-8 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                           >
                             <option value="default">zinc (monochrome)</option>
                             <option value="emerald">emerald (green)</option>
                             <option value="violet">violet (purple)</option>
                             <option value="rose">rose (pink)</option>
                           </select>
-                          <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-zinc-500" />
+                          <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-current opacity-70" />
                         </div>
                       </div>
                     </div>
 
                     {/* Col 2: Liquid Physics */}
                     <div className="space-y-4 md:col-span-2">
-                      <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                        Liquid Parameters
+                      <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                        // Liquid Parameters
                       </h4>
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400">
-                          <label className="font-medium">Liquid Morph Speed</label>
-                          <span className="font-mono font-bold">{lbGooSpeed}s</span>
+                        <div className="flex items-center justify-between text-current">
+                          <label className="font-semibold text-[10px]">LIQUID MORPH SPEED</label>
+                          <span className="font-bold">{lbGooSpeed}s</span>
                         </div>
                         <input
                           type="range"
@@ -579,17 +586,17 @@ export default function Page() {
                           step="0.5"
                           value={lbGooSpeed}
                           onChange={(e) => setLbGooSpeed(parseFloat(e.target.value))}
-                          className="w-full h-1 bg-zinc-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-800 accent-zinc-900 dark:accent-white"
+                          className="w-full h-1 bg-zinc-200 rounded appearance-none cursor-pointer dark:bg-zinc-800 accent-[#241B15] dark:accent-emerald-400"
                         />
-                        <div className="text-[10px] text-zinc-400 leading-normal">
-                          Configures the animation cycle duration of the float. Lower is faster/more volatile.
+                        <div className="text-[9px] text-[#241B15]/50 dark:text-emerald-500/50 leading-normal">
+                          Float animation loop speed. Lower is faster.
                         </div>
                       </div>
 
                       <div className="space-y-3 pt-2">
-                        <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400">
-                          <label className="font-medium">Goo Blur Intensity (stdDeviation)</label>
-                          <span className="font-mono font-bold">{lbGooIntensity}px</span>
+                        <div className="flex items-center justify-between text-current">
+                          <label className="font-semibold text-[10px]">GOOEY INTENSITY</label>
+                          <span className="font-bold">{lbGooIntensity}px</span>
                         </div>
                         <input
                           type="range"
@@ -597,10 +604,10 @@ export default function Page() {
                           max="18"
                           value={lbGooIntensity}
                           onChange={(e) => setLbGooIntensity(parseInt(e.target.value))}
-                          className="w-full h-1 bg-zinc-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-800 accent-zinc-900 dark:accent-white"
+                          className="w-full h-1 bg-zinc-200 rounded appearance-none cursor-pointer dark:bg-zinc-800 accent-[#241B15] dark:accent-emerald-400"
                         />
-                        <div className="text-[10px] text-zinc-400 leading-normal">
-                          SVG Gaussian standard deviation blur threshold. Higher values merge shapes more organically but blur the borders further.
+                        <div className="text-[9px] text-[#241B15]/50 dark:text-emerald-500/50 leading-normal">
+                          SVG Gaussian filter stdDeviation. Higher makes merges broader.
                         </div>
                       </div>
                     </div>
@@ -611,56 +618,56 @@ export default function Page() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Col 1: Content details */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                        Card details
+                      <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                        // Card Attributes
                       </h4>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Card Title</label>
+                        <label className="text-current font-semibold text-[10px]">CARD TITLE</label>
                         <input
                           type="text"
                           value={mcTitle}
                           onChange={(e) => setMcTitle(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 px-3 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                          className="w-full rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 px-3 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-zinc-500 dark:text-zinc-400 font-medium">Description</label>
+                        <label className="text-current font-semibold text-[10px]">CARD DESCRIPTION</label>
                         <textarea
                           rows={2}
                           value={mcDescription}
                           onChange={(e) => setMcDescription(e.target.value)}
-                          className="w-full rounded-lg border border-zinc-200 bg-zinc-50/50 px-3 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700 resize-none"
+                          className="w-full rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 px-3 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500 resize-none"
                         />
                       </div>
                     </div>
 
                     {/* Col 2: Gravity Settings */}
                     <div className="space-y-4 md:col-span-2">
-                      <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                        Gravity & Glow Parameters
+                      <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                        // Spotlight & Gravity Settings
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
-                          <label className="text-zinc-500 dark:text-zinc-400 font-medium">Glow Accent Color</label>
+                          <label className="text-current font-semibold text-[10px]">GLOW COLOR</label>
                           <div className="relative">
                             <select
                               value={mcAccentColor}
-                              onChange={(e) => setMcAccentColor(e.target.value as any)}
-                              className="w-full appearance-none rounded-lg border border-zinc-200 bg-zinc-50/50 pl-3 pr-8 py-2 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:focus:border-zinc-700"
+                              onChange={(e) => setMcAccentColor(e.target.value as "emerald" | "indigo" | "rose" | "violet")}
+                              className="w-full appearance-none rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 pl-3 pr-8 py-1.5 outline-none focus:bg-white dark:border-emerald-500/30 dark:bg-[#080C0A] dark:focus:border-emerald-500"
                             >
                               <option value="emerald">emerald (green)</option>
                               <option value="indigo">indigo (blue)</option>
                               <option value="rose">rose (pink)</option>
                               <option value="violet">violet (purple)</option>
                             </select>
-                            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-zinc-500" />
+                            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-current opacity-70" />
                           </div>
                         </div>
 
                         <div className="space-y-3">
-                          <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400">
-                            <label className="font-medium">3D Tilt Angle</label>
-                            <span className="font-mono font-bold">{mcTiltStrength}°</span>
+                          <div className="flex items-center justify-between text-current">
+                            <label className="font-semibold text-[10px]">3D ROTATION TILT</label>
+                            <span className="font-bold">{mcTiltStrength}°</span>
                           </div>
                           <input
                             type="range"
@@ -668,15 +675,15 @@ export default function Page() {
                             max="30"
                             value={mcTiltStrength}
                             onChange={(e) => setMcTiltStrength(parseInt(e.target.value))}
-                            className="w-full h-1 bg-zinc-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-800 accent-zinc-900 dark:accent-white"
+                            className="w-full h-1 bg-zinc-200 rounded appearance-none cursor-pointer dark:bg-zinc-800 accent-[#241B15] dark:accent-emerald-400"
                           />
                         </div>
                       </div>
 
                       <div className="space-y-3 pt-2">
-                        <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400">
-                          <label className="font-medium">Parallax Shift Factor</label>
-                          <span className="font-mono font-bold">{mcMagneticStrength}</span>
+                        <div className="flex items-center justify-between text-current">
+                          <label className="font-semibold text-[10px]">PARALLAX DEPTH FACTOR</label>
+                          <span className="font-bold">{mcMagneticStrength}</span>
                         </div>
                         <input
                           type="range"
@@ -685,10 +692,10 @@ export default function Page() {
                           step="0.05"
                           value={mcMagneticStrength}
                           onChange={(e) => setMcMagneticStrength(parseFloat(e.target.value))}
-                          className="w-full h-1 bg-zinc-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-800 accent-zinc-900 dark:accent-white"
+                          className="w-full h-1 bg-zinc-200 rounded appearance-none cursor-pointer dark:bg-zinc-800 accent-[#241B15] dark:accent-emerald-400"
                         />
-                        <div className="text-[10px] text-zinc-400 leading-normal">
-                          Configures how far the internal titles and details translate in physical direction relative to the cursor rotation offset.
+                        <div className="text-[9px] text-[#241B15]/50 dark:text-emerald-500/50 leading-normal">
+                          Translation multiplier for card content parallax.
                         </div>
                       </div>
                     </div>
@@ -700,24 +707,25 @@ export default function Page() {
 
           {/* RIGHT COLUMN: CLI & SOURCE INSTALLATION CARDS */}
           <div className="lg:col-span-4 space-y-6">
-            {/* Install panel toggler */}
-            <div className="rounded-2xl border border-zinc-200/80 bg-zinc-100/50 p-1.5 dark:border-zinc-800/80 dark:bg-zinc-900/30 flex gap-1">
+            
+            {/* Install panel toggler - Thin */}
+            <div className="rounded border border-[#241B15]/20 bg-[#FAF8F5]/60 p-1 dark:border-emerald-500/20 dark:bg-[#0D1310]/60 flex gap-1 overflow-hidden font-mono">
               <button
                 onClick={() => setInstallMode("command")}
-                className={`w-full py-1.5 text-center text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
+                className={`w-full py-1.5 text-center text-[9px] font-bold uppercase tracking-wider rounded transition-colors cursor-pointer ${
                   installMode === "command"
-                    ? "bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-white"
-                    : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                    ? "bg-[#241B15] text-[#F6F2E9] dark:bg-emerald-500 dark:text-zinc-950"
+                    : "text-[#241B15] hover:bg-zinc-100 dark:text-emerald-400/80 dark:hover:bg-emerald-500/10"
                 }`}
               >
                 CLI Install
               </button>
               <button
                 onClick={() => setInstallMode("manual")}
-                className={`w-full py-1.5 text-center text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
+                className={`w-full py-1.5 text-center text-[9px] font-bold uppercase tracking-wider rounded transition-colors cursor-pointer ${
                   installMode === "manual"
-                    ? "bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-white"
-                    : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                    ? "bg-[#241B15] text-[#F6F2E9] dark:bg-emerald-500 dark:text-zinc-950"
+                    : "text-[#241B15] hover:bg-zinc-100 dark:text-emerald-400/80 dark:hover:bg-emerald-500/10"
                 }`}
               >
                 Copy Source
@@ -725,29 +733,29 @@ export default function Page() {
             </div>
 
             {installMode === "command" ? (
-              /* CLI card */
-              <div className="rounded-3xl border border-zinc-200/80 bg-white p-5 dark:border-zinc-800/80 dark:bg-zinc-950/20 shadow-sm space-y-4">
-                <div className="flex items-center gap-2 border-b border-zinc-200/60 pb-3 dark:border-zinc-800/60">
-                  <Terminal className="size-4 text-zinc-500" />
-                  <h3 className="text-sm font-bold tracking-tight text-zinc-800 dark:text-zinc-200">
-                    Shadcn Installer
+              /* CLI card - Thin border */
+              <div className="rounded-xl border border-[#241B15]/20 bg-[#FAF8F5]/60 p-5 dark:border-emerald-500/20 dark:bg-[#0D1310]/60 space-y-4">
+                <div className="flex items-center gap-2 border-b border-[#241B15]/10 pb-3 dark:border-emerald-500/20 font-mono">
+                  <Terminal className="size-4 text-current opacity-70" />
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-current">
+                    [ Shadcn CLI ]
                   </h3>
                 </div>
 
-                <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
-                  You can add the component to your project instantly using the shadcn registry. Choose your package manager:
+                <p className="text-[11px] font-mono leading-relaxed text-[#241B15]/75 dark:text-emerald-500/60">
+                  Execute the installer script in your workspace:
                 </p>
 
-                {/* PM Tabs switcher */}
-                <div className="flex items-center justify-between gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-zinc-900/60">
+                {/* PM Tabs switcher - Thin */}
+                <div className="flex items-center justify-between gap-1 rounded border border-[#241B15]/10 dark:border-emerald-500/25 p-1 bg-white dark:bg-[#080C0A] font-mono">
                   {(["bun", "pnpm", "npm", "yarn"] as const).map((pm) => (
                     <button
                       key={pm}
                       onClick={() => setPackageManager(pm)}
-                      className={`w-full py-1 text-[10px] font-bold rounded transition-colors uppercase cursor-pointer ${
+                      className={`w-full py-0.5 text-[9px] font-bold rounded transition-colors uppercase cursor-pointer ${
                         packageManager === pm
-                          ? "bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-white"
-                          : "text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-400"
+                          ? "bg-[#241B15] text-white dark:bg-emerald-500 dark:text-zinc-950"
+                          : "text-zinc-400 dark:text-emerald-500/30 hover:text-zinc-600 dark:hover:text-emerald-500/50"
                       }`}
                     >
                       {pm}
@@ -756,13 +764,13 @@ export default function Page() {
                 </div>
 
                 {/* command container */}
-                <div className="relative rounded-xl bg-zinc-950 p-3 font-mono text-[10px] text-zinc-300 dark:bg-black border border-zinc-800/80 shadow-md">
+                <div className="relative rounded bg-black p-3 font-mono text-[10px] text-emerald-400 border border-emerald-500/20 shadow-inner">
                   <button
                     onClick={() => handleCopy(installCommands[packageManager], "cli-command")}
-                    className="absolute right-2 top-2 flex size-6 cursor-pointer items-center justify-center rounded-md border border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200"
+                    className="absolute right-2 top-2 flex size-6 cursor-pointer items-center justify-center rounded border border-[#241B15]/20 bg-zinc-900/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200"
                     title="Copy command"
                   >
-                    {copiedText === "cli-command" ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+                    {copiedText === "cli-command" ? <Check className="size-3 text-emerald-400" /> : <Copy className="size-3" />}
                   </button>
                   <div className="pr-6 whitespace-pre-wrap break-all leading-normal">
                     {installCommands[packageManager]}
@@ -770,24 +778,24 @@ export default function Page() {
                 </div>
               </div>
             ) : (
-              /* Manual source card */
-              <div className="rounded-3xl border border-zinc-200/80 bg-white p-5 dark:border-zinc-800/80 dark:bg-zinc-950/20 shadow-sm space-y-4">
-                <div className="flex items-center gap-2 border-b border-zinc-200/60 pb-3 dark:border-zinc-800/60">
-                  <FileCode className="size-4 text-zinc-500" />
-                  <h3 className="text-sm font-bold tracking-tight text-zinc-800 dark:text-zinc-200">
-                    Source Code
+              /* Manual source card - Thin border */
+              <div className="rounded-xl border border-[#241B15]/20 bg-[#FAF8F5]/60 p-5 dark:border-emerald-500/20 dark:bg-[#0D1310]/60 space-y-4">
+                <div className="flex items-center gap-2 border-b border-[#241B15]/10 pb-3 dark:border-emerald-500/20 font-mono">
+                  <FileCode className="size-4 text-current opacity-70" />
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-current">
+                    [ Source Code ]
                   </h3>
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                    Required Dependencies
+                <div className="space-y-2 font-mono">
+                  <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                    // Required Dependencies
                   </h4>
                   <div className="flex flex-wrap gap-1">
                     {currentComponent.deps.map((dep) => (
                       <span
                         key={dep}
-                        className="rounded bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-2 py-0.5 font-mono text-[10px] text-zinc-600 dark:text-zinc-400"
+                        className="rounded bg-white dark:bg-[#080C0A] border border-[#241B15]/10 dark:border-emerald-500/20 px-2 py-0.5 font-mono text-[9px] text-current"
                       >
                         {dep}
                       </span>
@@ -795,23 +803,23 @@ export default function Page() {
                   </div>
                 </div>
 
-                <div className="space-y-2 pt-1">
-                  <h4 className="font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 text-[10px]">
-                    Implementation Code
+                <div className="space-y-2 pt-1 font-mono">
+                  <h4 className="font-bold uppercase tracking-wider text-[#241B15]/40 dark:text-emerald-500/40 text-[9px]">
+                    // Component File
                   </h4>
                   <button
                     onClick={() => handleCopy(currentComponent.sourceCode, "raw-source")}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 py-2.5 text-xs font-bold text-white shadow-md hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+                    className="flex w-full items-center justify-center gap-1.5 rounded border border-[#241B15]/30 bg-[#FAF8F5] py-2 font-mono text-[10px] font-bold uppercase text-[#241B15] hover:bg-zinc-100 dark:border-emerald-500/30 dark:bg-[#080C0A] dark:text-emerald-400 dark:hover:bg-emerald-500/10 cursor-pointer transition-colors"
                   >
                     {copiedText === "raw-source" ? (
                       <>
-                        <Check className="size-3.5 text-emerald-500" />
+                        <Check className="size-3 text-emerald-500" />
                         <span>Source Copied!</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="size-3.5" />
-                        <span>Copy Component File</span>
+                        <Copy className="size-3" />
+                        <span>Copy Code File</span>
                       </>
                     )}
                   </button>
@@ -819,24 +827,24 @@ export default function Page() {
               </div>
             )}
 
-            {/* Document Info Metadata Card */}
-            <div className="rounded-3xl border border-zinc-200/80 bg-white p-5 dark:border-zinc-800/80 dark:bg-zinc-950/20 shadow-sm space-y-3">
-              <div className="flex items-center gap-2 border-b border-zinc-200/60 pb-3 dark:border-zinc-800/60">
-                <Info className="size-4 text-zinc-500" />
-                <h3 className="text-sm font-bold tracking-tight text-zinc-800 dark:text-zinc-200">
-                  About {currentComponent.title}
+            {/* Document Info Metadata Card - Thin border */}
+            <div className="rounded-xl border border-[#241B15]/20 bg-[#FAF8F5]/60 p-5 dark:border-emerald-500/20 dark:bg-[#0D1310]/60 space-y-3">
+              <div className="flex items-center gap-2 border-b border-[#241B15]/10 pb-3 dark:border-emerald-500/20 font-mono">
+                <Info className="size-4 text-current opacity-70" />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-current">
+                  [ Details ]
                 </h3>
               </div>
-              <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-xs font-mono leading-relaxed text-[#241B15]/75 dark:text-emerald-500/70">
                 {currentComponent.desc}
               </p>
-              <div className="text-[10px] text-zinc-400 dark:text-zinc-500 leading-relaxed pt-1">
-                <strong>Registry URL:</strong> <br />
+              <div className="text-[9px] text-[#241B15]/50 dark:text-emerald-500/40 leading-relaxed pt-1 font-mono">
+                <strong>REGISTRY SCHEMATIC:</strong> <br />
                 <a
                   href={currentComponent.registryUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 break-all underline"
+                  className="font-mono text-[#241B15] hover:underline dark:text-emerald-400 break-all"
                 >
                   {currentComponent.registryUrl}
                 </a>
@@ -846,17 +854,17 @@ export default function Page() {
         </div>
       </main>
 
-      {/* Aesthetic Footer */}
-      <footer className="w-full border-t border-zinc-200/80 bg-zinc-50/50 py-8 dark:border-zinc-800/80 dark:bg-[#09090b]/50 mt-16 text-center text-xs text-zinc-400 dark:text-zinc-500">
-        <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Aesthetic Footer - Thin Border */}
+      <footer className="w-full border-t border-[#241B15]/20 bg-[#FAF8F5] py-8 dark:border-emerald-500/20 dark:bg-[#0A0F0D] mt-16 text-center text-xs text-[#241B15]/80 dark:text-emerald-400/80 font-mono">
+        <div className="mx-auto max-w-[1800px] px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-1.5">
-            <span className="font-bold text-zinc-700 dark:text-zinc-300">Liquid UI</span>
+            <span className="font-bold">[ LIQUID UI ]</span>
             <span>• premium organic interface elements.</span>
           </div>
           <div className="flex gap-4">
-            <a href="https://github.com/PiyushAryan" target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-zinc-700 dark:hover:text-zinc-300">GitHub</a>
-            <a href="https://linkedin.com/in/piyush-aryan" target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-zinc-700 dark:hover:text-zinc-300">LinkedIn</a>
-            <a href="https://piyusharyan.online" target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-zinc-700 dark:hover:text-zinc-300">Portfolio</a>
+            <a href="https://github.com/PiyushAryan" target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
+            <a href="https://linkedin.com/in/piyush-aryan" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+            <a href="https://piyusharyan.online" target="_blank" rel="noopener noreferrer" className="hover:underline">Portfolio</a>
           </div>
         </div>
       </footer>

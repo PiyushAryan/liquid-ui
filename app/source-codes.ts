@@ -429,7 +429,12 @@ export function DictionaryHero({
           </div>
         </div>
       </div>
-    </motion.section>\n  )\n}"
+    </motion.section>
+  )
+}
+
+export default DictionaryHero;
+`;
 
 export const liquidButtonSourceCode = `"use client"
 
@@ -560,7 +565,8 @@ export function LiquidButton({
   )
 }
 
-export default LiquidButton;"
+export default LiquidButton;
+`;
 
 export const magneticCardSourceCode = `"use client"
 
@@ -729,4 +735,5 @@ export function MagneticCard({
   )
 }
 
-export default MagneticCard;"
+export default MagneticCard;
+`;
